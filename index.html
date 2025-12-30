@@ -6,7 +6,7 @@
     <title>Python Mastery Guide | From Snake to Code</title>
     <meta name="description" content="Learn Python from absolute scratch! Created by Uzor Blessing Ngozi for O-Level, fresh graduates, and first-year university students">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --python-blue: #306998;
@@ -14,6 +14,10 @@
             --python-dark: #0d2b4e;
             --python-light: #4B8BBE;
             --python-accent: #FF6B6B;
+            --python-green: #98c379;
+            --python-purple: #c678dd;
+            --python-orange: #d19a66;
+            --python-comment: #5c6370;
             --light: #f8f9fa;
             --dark: #1a1a2e;
             --gray: #6c757d;
@@ -234,8 +238,8 @@
         
         .concepts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2.5rem;
             margin: 3rem 0;
         }
         
@@ -296,23 +300,67 @@
             font-size: 1rem;
         }
         
-        .code-example {
+        .code-container {
             background: #282c34;
-            color: #abb2bf;
-            padding: 1.5rem;
             border-radius: 8px;
-            font-family: 'JetBrains Mono', 'Courier New', monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
+            overflow: hidden;
             margin-bottom: 1.5rem;
-            border-left: 4px solid var(--python-yellow);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
         
-        .code-comment { color: #5c6370; }
-        .code-keyword { color: #c678dd; }
-        .code-string { color: #98c379; }
-        .code-function { color: #61afef; }
-        .code-number { color: #d19a66; }
+        .code-header {
+            background: #21252b;
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #181a1f;
+        }
+        
+        .code-title {
+            color: #abb2bf;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .code-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .code-action-btn {
+            background: transparent;
+            border: none;
+            color: #abb2bf;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .code-action-btn:hover {
+            color: white;
+        }
+        
+        .code-example {
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            background: #282c34;
+            color: #abb2bf;
+        }
+        
+        /* Python Syntax Highlighting */
+        .code-comment { color: var(--python-comment); font-style: italic; }
+        .code-keyword { color: var(--python-purple); font-weight: 500; }
+        .code-string { color: var(--python-green); }
+        .code-function { color: var(--python-light); }
+        .code-number { color: var(--python-orange); }
+        .code-builtin { color: #56b6c2; }
+        .code-operator { color: #56b6c2; }
+        .code-class { color: #e5c07b; }
         
         .project-showcase {
             background: linear-gradient(135deg, var(--python-dark), var(--python-blue));
@@ -682,7 +730,86 @@
     </div>
 
     <script>
-        // Comprehensive Python Concepts Data
+        // Python Syntax Highlighter
+        function highlightPythonCode(code) {
+            // Python keywords
+            const keywords = [
+                'False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await',
+                'break', 'class', 'continue', 'def', 'del', 'elif', 'else',
+                'except', 'finally', 'for', 'from', 'global', 'if', 'import',
+                'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise',
+                'return', 'try', 'while', 'with', 'yield'
+            ];
+            
+            // Built-in functions
+            const builtins = [
+                'abs', 'all', 'any', 'ascii', 'bin', 'bool', 'breakpoint', 'bytearray',
+                'bytes', 'callable', 'chr', 'classmethod', 'compile', 'complex',
+                'delattr', 'dict', 'dir', 'divmod', 'enumerate', 'eval', 'exec',
+                'filter', 'float', 'format', 'frozenset', 'getattr', 'globals',
+                'hasattr', 'hash', 'help', 'hex', 'id', 'input', 'int', 'isinstance',
+                'issubclass', 'iter', 'len', 'list', 'locals', 'map', 'max', 'memoryview',
+                'min', 'next', 'object', 'oct', 'open', 'ord', 'pow', 'print',
+                'property', 'range', 'repr', 'reversed', 'round', 'set', 'setattr',
+                'slice', 'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple',
+                'type', 'vars', 'zip'
+            ];
+            
+            // Operators
+            const operators = ['=', '==', '!=', '<', '>', '<=', '>=', '\\+', '-', '\\*', '/', '//', '%', '\\*\\*', '\\+=', '-=', '\\*=', '/=', '%=', '&=', '\\|=', '^=', '>>=', '<<=', '\\|', '&', '~', '\\^', '>>', '<<'];
+            
+            // Process each line
+            const lines = code.split('\n');
+            let highlighted = '';
+            
+            for (let line of lines) {
+                let highlightedLine = line;
+                
+                // Handle comments
+                const commentIndex = line.indexOf('#');
+                if (commentIndex !== -1) {
+                    const codePart = line.substring(0, commentIndex);
+                    const commentPart = line.substring(commentIndex);
+                    highlightedLine = codePart + '<span class="code-comment">' + commentPart + '</span>';
+                }
+                
+                // Highlight keywords
+                keywords.forEach(keyword => {
+                    const regex = new RegExp(`\\b${keyword}\\b`, 'g');
+                    highlightedLine = highlightedLine.replace(regex, `<span class="code-keyword">${keyword}</span>`);
+                });
+                
+                // Highlight builtins
+                builtins.forEach(builtin => {
+                    const regex = new RegExp(`\\b${builtin}\\(`, 'g');
+                    highlightedLine = highlightedLine.replace(regex, `<span class="code-builtin">${builtin}</span>(`);
+                });
+                
+                // Highlight numbers
+                highlightedLine = highlightedLine.replace(/\b\d+(\.\d+)?\b/g, '<span class="code-number">$&</span>');
+                
+                // Highlight strings (single and double quotes)
+                highlightedLine = highlightedLine.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="code-string">$&</span>');
+                
+                // Highlight operators
+                operators.forEach(op => {
+                    const regex = new RegExp(`(${op})`, 'g');
+                    highlightedLine = highlightedLine.replace(regex, '<span class="code-operator">$1</span>');
+                });
+                
+                // Highlight function definitions
+                highlightedLine = highlightedLine.replace(/\bdef (\w+)/g, '<span class="code-keyword">def</span> <span class="code-function">$1</span>');
+                
+                // Highlight class definitions
+                highlightedLine = highlightedLine.replace(/\bclass (\w+)/g, '<span class="code-keyword">class</span> <span class="code-class">$1</span>');
+                
+                highlighted += highlightedLine + '\n';
+            }
+            
+            return highlighted.trim();
+        }
+
+        // Comprehensive Python Concepts Data with PROPER CODE
         const pythonConcepts = [
             {
                 id: 1,
@@ -1023,7 +1150,7 @@ for code, info in courses.items():
             }
         ];
 
-        // Generate remaining 90 concepts
+        // Generate remaining 90 concepts with PROPER CODE
         const conceptTemplates = [
             {
                 title: "String Manipulation",
@@ -1201,6 +1328,41 @@ import calculator
 result = calculator.add(5, 3)
 print(f"\\n5 + 3 = {result}")`,
                 tags: ["modules", "import", "libraries"]
+            },
+            {
+                title: "List Comprehensions",
+                description: "Create lists in a concise, readable way - Python's superpower for data manipulation!",
+                level: "intermediate",
+                category: "data-structures",
+                code: `# Traditional way
+numbers = []
+for i in range(10):
+    numbers.append(i)
+print(numbers)
+
+# List comprehension way
+numbers = [i for i in range(10)]
+print(numbers)
+
+# More examples
+# Squares of numbers
+squares = [x**2 for x in range(1, 6)]
+print(f"Squares: {squares}")
+
+# Even numbers only
+evens = [x for x in range(20) if x % 2 == 0]
+print(f"Even numbers: {evens}")
+
+# Convert grades
+grades = [85, 92, 78, 88, 95]
+letter_grades = ['A' if g >= 90 else 'B' if g >= 80 else 'C' for g in grades]
+print(f"Letter grades: {letter_grades}")
+
+# Nested list comprehension
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flattened = [num for row in matrix for num in row]
+print(f"Flattened matrix: {flattened}")`,
+                tags: ["list-comprehension", "data-manipulation", "advanced"]
             }
         ];
 
@@ -1241,15 +1403,28 @@ print("Learning Python concept", ${i})
             updateProgress();
             
             // Add search functionality
-            document.addEventListener('keyup', (e) => {
-                if (e.target.matches('.search-box')) {
-                    const searchTerm = e.target.value.toLowerCase();
-                    filterConcepts(searchTerm);
-                }
+            const searchBox = document.createElement('input');
+            searchBox.type = 'text';
+            searchBox.placeholder = '🔍 Search Python concepts...';
+            searchBox.style.cssText = `
+                width: 100%;
+                padding: 1rem;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                font-size: 1rem;
+                margin: 2rem 0;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            `;
+            
+            document.querySelector('.container').insertBefore(searchBox, conceptsContainer);
+            
+            searchBox.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                filterConcepts(searchTerm);
             });
         }
 
-        // Render concepts
+        // Render concepts with PROPER CODE FORMATTING
         function renderConcepts() {
             conceptsContainer.innerHTML = '';
             
@@ -1269,7 +1444,19 @@ print("Learning Python concept", ${i})
                     </div>
                     <h3 class="concept-title">${concept.title}</h3>
                     <p class="concept-description">${concept.description}</p>
-                    <div class="code-example">${escapeHtml(concept.code)}</div>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <div class="code-title">python_code.py</div>
+                            <div class="code-actions">
+                                <button class="code-action-btn" onclick="copyCode(${concept.id})">
+                                    <i class="far fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                        <pre class="code-example">${highlightPythonCode(concept.code)}</pre>
+                    </div>
+                    
                     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
                         ${concept.tags.map(tag => `<span style="background: #e9ecef; color: var(--gray); padding: 0.3rem 0.7rem; border-radius: 15px; font-size: 0.8rem;">${tag}</span>`).join('')}
                     </div>
@@ -1283,6 +1470,24 @@ print("Learning Python concept", ${i})
                 checkbox.addEventListener('change', toggleCompleted);
             });
         }
+
+        // Copy code function
+        window.copyCode = function(conceptId) {
+            const concept = pythonConcepts.find(c => c.id === conceptId);
+            if (concept) {
+                navigator.clipboard.writeText(concept.code)
+                    .then(() => {
+                        // Show success message
+                        const event = new CustomEvent('show-toast', {
+                            detail: { message: 'Code copied to clipboard! 📋' }
+                        });
+                        document.dispatchEvent(event);
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+            }
+        };
 
         // Filter concepts
         function filterConcepts(searchTerm) {
@@ -1340,13 +1545,6 @@ print("Learning Python concept", ${i})
                 progressPercentage.style.color = 'var(--success)';
                 progressFill.style.background = 'var(--success)';
             }
-        }
-
-        // Helper function to escape HTML
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
 
         // Initialize the app
