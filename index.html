@@ -4,1018 +4,816 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Mastery Guide | From Snake to Code</title>
-    <meta name="description" content="Learn Python from absolute scratch! Created by Uzor Blessing Ngozi for O-Level, fresh graduates, and first-year university students">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --python-blue: #306998;
-            --python-yellow: #FFD43B;
-            --python-dark: #0d2b4e;
-            --python-light: #4B8BBE;
-            --python-accent: #FF6B6B;
-            --python-green: #98c379;
-            --python-purple: #c678dd;
-            --python-orange: #d19a66;
-            --python-comment: #5c6370;
-            --light: #f8f9fa;
-            --dark: #1a1a2e;
-            --gray: #6c757d;
-            --success: #00b894;
-            --border-radius: 12px;
-            --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            --gradient: linear-gradient(135deg, var(--python-blue), var(--python-light));
+            --py-blue: #306998;
+            --py-yellow: #FFD43B;
+            --py-dark: #0a1628;
+            --py-mid: #1a2d4e;
+            --py-light: #4B8BBE;
+            --py-green: #3ec97c;
+            --py-red: #ff6b6b;
+            --surface: #f0f4f8;
+            --white: #ffffff;
+            --text: #1a2d4e;
+            --muted: #6b7a99;
+            --border: #dde3f0;
+            --radius: 16px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 12px 40px rgba(48,105,152,0.18);
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            color: var(--dark);
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--surface);
+            color: var(--text);
             line-height: 1.7;
-            min-height: 100vh;
         }
-        
-        .python-header {
-            background: linear-gradient(135deg, var(--python-dark), var(--python-blue));
-            color: white;
-            padding: 3rem 1rem;
+
+        /* ── HEADER ── */
+        .header {
+            background: linear-gradient(135deg, var(--py-dark) 0%, var(--py-mid) 60%, #1e3a6e 100%);
+            padding: 4rem 2rem 5rem;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
-        
-        .python-header::before {
+        .header::after {
             content: '🐍';
             position: absolute;
-            font-size: 15rem;
-            opacity: 0.05;
-            right: 5%;
+            font-size: 22rem;
+            opacity: 0.04;
+            right: -2%;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 0;
+            pointer-events: none;
         }
-        
-        .header-content {
-            position: relative;
-            z-index: 1;
+        .header h1 {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -1px;
         }
-        
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 800;
+        .header h1 span {
+            color: var(--py-yellow);
         }
-        
-        .python-title {
-            background: linear-gradient(90deg, var(--python-yellow), #FFEAA7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .subtitle {
-            font-size: 1.4rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto 2rem;
+        .header .sub {
+            color: rgba(255,255,255,0.75);
+            font-size: 1.2rem;
+            margin: 1rem auto 2rem;
+            max-width: 680px;
             font-weight: 300;
         }
-        
-        .creator-tag {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            font-size: 1rem;
-            margin-top: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .personal-story {
-            background: white;
-            padding: 3rem;
-            margin: 2rem auto;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            max-width: 900px;
-            position: relative;
-            border-left: 6px solid var(--python-yellow);
-        }
-        
-        .story-icon {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--python-yellow);
-            color: var(--python-dark);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
+        .creator-pill {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 212, 59, 0.4);
+            gap: 0.6rem;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+            backdrop-filter: blur(8px);
         }
-        
-        .story-content {
-            text-align: center;
-        }
-        
-        .story-highlight {
-            color: var(--python-blue);
-            font-weight: 600;
-            background: linear-gradient(120deg, rgba(255, 212, 59, 0.2) 0%, transparent 100%);
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-        }
-        
+
+        /* ── CONTAINER ── */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
-        
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
+
+        /* ── STORY CARD ── */
+        .story-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2.5rem 3rem;
+            margin: -2.5rem auto 2.5rem;
+            max-width: 860px;
+            position: relative;
+            box-shadow: var(--shadow-hover);
+            border-left: 5px solid var(--py-yellow);
         }
-        
-        .stat-card {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+        .story-card h2 { color: var(--py-dark); margin-bottom: 1rem; }
+        .story-card p { color: #3d4f6b; margin-bottom: 0.9rem; }
+        .highlight { background: #fff7cc; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; color: var(--py-blue); }
+
+        /* ── STATS ── */
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem; margin: 2.5rem 0; }
+        .stat {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.8rem 1.5rem;
             text-align: center;
-            transition: all 0.3s;
-            border-top: 4px solid var(--python-blue);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--py-blue);
+            transition: transform 0.25s, box-shadow 0.25s;
         }
-        
-        .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-        
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--python-blue);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-        
-        .learning-path {
-            background: white;
-            border-radius: var(--border-radius);
+        .stat:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+        .stat-num { font-size: 2.8rem; font-weight: 700; color: var(--py-blue); }
+        .stat-label { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
+
+        /* ── LEARNING PATH ── */
+        .path-box {
+            background: var(--white);
+            border-radius: var(--radius);
             padding: 2.5rem;
-            margin: 3rem 0;
+            margin: 2rem 0;
             box-shadow: var(--shadow);
         }
-        
-        .path-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .path-header h2 {
-            color: var(--python-dark);
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .path-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .path-step {
-            text-align: center;
+        .path-box h2 { text-align: center; margin-bottom: 0.4rem; font-size: 1.8rem; }
+        .path-box p { text-align: center; color: var(--muted); margin-bottom: 2rem; }
+        .path-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.5rem; }
+        .step {
+            background: var(--surface);
+            border-radius: 12px;
             padding: 1.5rem;
-            border-radius: var(--border-radius);
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            transition: all 0.3s;
+            text-align: center;
+            transition: all 0.25s;
+            cursor: default;
         }
-        
-        .path-step:hover {
-            background: linear-gradient(135deg, var(--python-blue) 0%, var(--python-light) 100%);
-            color: white;
-            transform: scale(1.05);
-        }
-        
-        .step-number {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: var(--python-yellow);
-            color: var(--python-dark);
+        .step:hover { background: var(--py-blue); color: white; transform: scale(1.04); }
+        .step:hover .step-sub { color: rgba(255,255,255,0.8); }
+        .step-num {
+            width: 40px; height: 40px;
+            background: var(--py-yellow);
+            color: var(--py-dark);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
             margin: 0 auto 1rem;
+            font-size: 1.1rem;
         }
-        
-        .concepts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 2.5rem;
-            margin: 3rem 0;
+        .step h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+        .step-sub { font-size: 0.88rem; color: var(--muted); }
+
+        /* ── SEARCH ── */
+        .search-wrap { margin: 2.5rem 0 1.5rem; }
+        .search-wrap input {
+            width: 100%;
+            padding: 1rem 1.4rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            transition: border 0.2s, box-shadow 0.2s;
+            outline: none;
         }
-        
+        .search-wrap input:focus { border-color: var(--py-blue); box-shadow: 0 0 0 3px rgba(48,105,152,0.12); }
+
+        /* ── SECTION HEADER ── */
+        .section-head { text-align: center; margin: 2.5rem 0 1rem; }
+        .section-head h2 { font-size: 2.2rem; margin-bottom: 0.4rem; }
+        .section-head p { color: var(--muted); max-width: 700px; margin: 0 auto; }
+
+        /* ── CONCEPTS GRID ── */
+        .concepts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 2rem; margin: 2rem 0 3rem; }
+
         .concept-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 2rem;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.8rem;
             box-shadow: var(--shadow);
-            transition: all 0.4s;
+            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        
         .concept-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient);
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--py-blue), var(--py-light));
         }
-        
-        .concept-card:hover {
-            transform: translateY(-10px) rotateX(2deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-        
-        .concept-header {
+        .concept-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+
+        .card-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.1rem;
         }
-        
-        .concept-level {
-            font-size: 0.8rem;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
+        .badge {
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
         }
-        
-        .level-beginner { background: #d4edda; color: #155724; }
-        .level-intermediate { background: #fff3cd; color: #856404; }
-        .level-advanced { background: #f8d7da; color: #721c24; }
-        
-        .concept-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--python-dark);
-            line-height: 1.3;
-        }
-        
-        .concept-description {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-        
-        .code-container {
-            background: #282c34;
-            border-radius: 8px;
+        .badge-beginner { background: #d4edda; color: #1a6b35; }
+        .badge-intermediate { background: #fff3cd; color: #7a5600; }
+        .badge-advanced { background: #fde8e8; color: #8b1a1a; }
+
+        .concept-num { font-size: 0.85rem; color: var(--muted); font-weight: 500; }
+        .concept-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--py-dark); line-height: 1.35; }
+        .concept-desc { font-size: 0.93rem; color: var(--muted); margin-bottom: 1.3rem; flex: 1; }
+
+        /* ── CODE BLOCK — THE BIG FIX ── */
+        .code-block {
+            background: #1e1e2e;
+            border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
         }
-        
-        .code-header {
-            background: #21252b;
-            padding: 0.8rem 1.2rem;
+        .code-bar {
+            background: #13131f;
+            padding: 0.65rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #181a1f;
+            border-bottom: 1px solid #2a2a3e;
         }
-        
-        .code-title {
-            color: #abb2bf;
+        .code-bar span {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.8rem;
+            color: #6272a4;
         }
-        
-        .code-actions {
-            display: flex;
-            gap: 0.8rem;
-        }
-        
-        .code-action-btn {
+        .copy-btn {
             background: transparent;
-            border: none;
-            color: #abb2bf;
+            border: 1px solid #44475a;
+            color: #8be9fd;
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.78rem;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-        
-        .code-action-btn:hover {
-            color: white;
-        }
-        
-        .code-example {
-            padding: 1.5rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            overflow-x: auto;
-            background: #282c34;
-            color: #abb2bf;
+            transition: all 0.2s;
         }
-        
-        /* Python Syntax Highlighting */
-        .code-comment { color: var(--python-comment); font-style: italic; }
-        .code-keyword { color: var(--python-purple); font-weight: 500; }
-        .code-string { color: var(--python-green); }
-        .code-function { color: var(--python-light); }
-        .code-number { color: var(--python-orange); }
-        .code-builtin { color: #56b6c2; }
-        .code-operator { color: #56b6c2; }
-        .code-class { color: #e5c07b; }
-        
-        .project-showcase {
-            background: linear-gradient(135deg, var(--python-dark), var(--python-blue));
+        .copy-btn:hover { background: #44475a; color: white; }
+
+        /* Raw <pre> + <code> — no JS syntax mangling */
+        .code-block pre {
+            margin: 0;
+            padding: 1.2rem 1.4rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: #f8f8f2;
+            background: #1e1e2e;
+            white-space: pre;
+            tab-size: 4;
+        }
+
+        /* Clean, non-overlapping syntax highlighting using CSS classes applied carefully */
+        .tok-comment { color: #6272a4; font-style: italic; }
+        .tok-keyword { color: #ff79c6; font-weight: 500; }
+        .tok-string  { color: #f1fa8c; }
+        .tok-number  { color: #bd93f9; }
+        .tok-func    { color: #50fa7b; }
+        .tok-builtin { color: #8be9fd; }
+        .tok-op      { color: #ff79c6; }
+        .tok-plain   { color: #f8f8f2; }
+
+        /* ── TAGS ── */
+        .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+        .tag {
+            background: var(--surface);
+            color: var(--muted);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        /* ── CHECKBOX ── */
+        .done-check {
+            position: absolute;
+            bottom: 1.4rem;
+            right: 1.4rem;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: var(--py-green);
+        }
+
+        /* ── PROJECTS ── */
+        .projects {
+            background: linear-gradient(135deg, var(--py-dark), var(--py-mid));
             color: white;
             padding: 4rem 2rem;
-            border-radius: var(--border-radius);
-            margin: 4rem 0;
+            border-radius: var(--radius);
+            margin: 3rem 0;
             text-align: center;
         }
-        
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+        .projects h2 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .projects > p { opacity: 0.8; max-width: 640px; margin: 0 auto 2.5rem; }
+        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .proj-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 1.8rem;
+            transition: all 0.25s;
         }
-        
-        .project-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--python-yellow);
-        }
-        
-        .project-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--python-yellow);
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            justify-content: center;
-        }
-        
-        .project-tag {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-        
-        .progress-section {
-            background: white;
-            border-radius: var(--border-radius);
+        .proj-card:hover { background: rgba(255,255,255,0.14); border-color: var(--py-yellow); transform: translateY(-6px); }
+        .proj-icon { font-size: 2.4rem; margin-bottom: 0.8rem; }
+        .proj-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .proj-card p { font-size: 0.88rem; opacity: 0.75; }
+        .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.9rem; justify-content: center; }
+        .proj-tag { background: rgba(255,255,255,0.15); padding: 0.2rem 0.65rem; border-radius: 20px; font-size: 0.75rem; }
+
+        /* ── PROGRESS ── */
+        .progress-box {
+            background: var(--white);
+            border-radius: var(--radius);
             padding: 3rem;
+            text-align: center;
             box-shadow: var(--shadow);
             margin: 3rem 0;
-            text-align: center;
         }
-        
-        .progress-bar {
-            height: 15px;
-            background: #e9ecef;
-            border-radius: 10px;
+        .progress-box h2 { margin-bottom: 0.5rem; }
+        .progress-box p { color: var(--muted); }
+        .bar-wrap {
+            background: var(--surface);
+            border-radius: 20px;
+            height: 16px;
             overflow: hidden;
-            margin: 2rem 0;
+            margin: 1.8rem 0;
         }
-        
-        .progress-fill {
+        .bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--python-blue), var(--python-light));
+            border-radius: 20px;
+            background: linear-gradient(90deg, var(--py-blue), var(--py-light));
             width: 0%;
-            transition: width 1s ease-in-out;
-            border-radius: 10px;
+            transition: width 0.8s ease;
         }
-        
-        .motivation-section {
-            background: linear-gradient(135deg, #fff9db 0%, #ffe066 100%);
+        .prog-nums { display: flex; justify-content: space-around; margin-top: 1.5rem; }
+        .prog-num { font-size: 2.2rem; font-weight: 700; color: var(--py-blue); }
+        .prog-label { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* ── MOTIVATION ── */
+        .motivation {
+            background: linear-gradient(135deg, #fffae0 0%, #fff3a8 100%);
+            border: 2.5px dashed var(--py-dark);
+            border-radius: var(--radius);
             padding: 3rem;
-            border-radius: var(--border-radius);
+            text-align: center;
             margin: 3rem 0;
-            text-align: center;
-            border: 3px dashed var(--python-dark);
         }
-        
-        .motivation-quote {
-            font-size: 1.5rem;
+        .motivation blockquote {
+            font-size: 1.4rem;
             font-style: italic;
-            color: var(--python-dark);
-            margin-bottom: 1rem;
+            color: var(--py-dark);
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
         }
-        
+        .motivation cite { font-size: 0.9rem; color: var(--py-blue); font-weight: 600; font-style: normal; }
+
+        /* ── FOOTER ── */
         footer {
-            background: var(--python-dark);
+            background: var(--py-dark);
             color: white;
-            padding: 3rem 1rem;
+            padding: 3rem 1.5rem;
             text-align: center;
-            margin-top: 4rem;
+            margin-top: 3rem;
         }
-        
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: var(--python-yellow);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .concepts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .personal-story {
-                padding: 2rem 1rem;
-            }
-            
-            .path-steps {
-                grid-template-columns: 1fr;
-            }
-            
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .completed-checkbox {
-            position: absolute;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            width: 28px;
-            height: 28px;
-            cursor: pointer;
-            accent-color: var(--success);
-            border-radius: 6px;
-        }
-        
-        .check-animation {
-            animation: pulse 1s;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        footer h3 { color: var(--py-yellow); margin-bottom: 1rem; font-size: 1.4rem; }
+        footer p { opacity: 0.7; font-size: 0.9rem; margin-bottom: 0.6rem; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; margin: 1.5rem 0; }
+        .footer-links a { color: var(--py-yellow); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .footer-links a:hover { color: white; }
+
+        @media (max-width: 700px) {
+            .concepts-grid { grid-template-columns: 1fr; }
+            .story-card { padding: 1.8rem 1.4rem; margin: -1.5rem auto 2rem; }
+            .header { padding: 3rem 1rem 4rem; }
         }
     </style>
 </head>
 <body>
-    <div class="python-header">
-        <div class="header-content">
-            <h1>Python Mastery Guide</h1>
-            <div class="python-title">From Snake to Code 🐍</div>
-            <p class="subtitle">Your complete journey from Python novice to programming pro</p>
-            <div class="creator-tag">
-                <i class="fas fa-user-graduate"></i> Created by Uzor Blessing Ngozi • Data Science Masters Student
-            </div>
-        </div>
+
+<div class="header">
+    <h1>Python <span>Mastery</span> Guide</h1>
+    <div class="sub">From Snake to Code 🐍 — Your complete beginner-to-pro Python journey</div>
+    <div class="creator-pill">
+        <i class="fas fa-user-graduate"></i>
+        Created by Uzor Blessing Ngozi · Data Science Masters Student
     </div>
-    
-    <div class="container">
-        <div class="personal-story">
-            <div class="story-icon">💡</div>
-            <div class="story-content">
-                <h2 style="color: var(--python-dark); margin-bottom: 1.5rem;">My Python Journey - From Zero to Hero</h2>
-                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-                    Let me be honest with you - the first time I heard "Python," I thought of a snake! 🐍 
-                    That was me just a few years ago. Coming from a science background, programming seemed 
-                    like a foreign language spoken only by "tech people." I only discovered what Python 
-                    <em>really</em> was during my Master's program in Mathematical Sciences.
-                </p>
-                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-                    <span class="story-highlight">Here's the twist:</span> I major in Data Science, and Python 
-                    became my superpower! From analyzing complex datasets to building predictive models, 
-                    Python transformed my academic journey. Now, I want to help you avoid the confusion I faced.
-                </p>
-                <p style="font-size: 1.1rem; line-height: 1.8; font-weight: 500;">
-                    This guide is specially designed for <span class="story-highlight">O-Level students</span>, 
-                    <span class="story-highlight">fresh graduates</span>, and <span class="story-highlight">first-year university students</span> 
-                    in ALL fields - whether you're in Arts, Sciences, Medicine, or Engineering.
-                </p>
-            </div>
-        </div>
-        
-        <div class="stats-bar">
-            <div class="stat-card">
-                <div class="stat-number" id="total-concepts">100</div>
-                <div class="stat-label">Python Concepts</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="completed-concepts">0</div>
-                <div class="stat-label">Mastered</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="remaining-concepts">100</div>
-                <div class="stat-label">To Learn</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">15+</div>
-                <div class="stat-label">Real Projects</div>
-            </div>
-        </div>
-        
-        <div class="learning-path">
-            <div class="path-header">
-                <h2>Your 4-Week Python Learning Path</h2>
-                <p>Follow this structured path - perfect for busy students!</p>
-            </div>
-            <div class="path-steps">
-                <div class="path-step">
-                    <div class="step-number">1</div>
-                    <h3>Week 1: Basics</h3>
-                    <p>Variables, data types, and your first program</p>
-                </div>
-                <div class="path-step">
-                    <div class="step-number">2</div>
-                    <h3>Week 2: Logic</h3>
-                    <p>Conditionals, loops, and problem solving</p>
-                </div>
-                <div class="path-step">
-                    <div class="step-number">3</div>
-                    <h3>Week 3: Functions</h3>
-                    <p>Reusable code and mini-projects</p>
-                </div>
-                <div class="path-step">
-                    <div class="step-number">4</div>
-                    <h3>Week 4: Projects</h3>
-                    <p>Build real applications</p>
-                </div>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin: 3rem 0;">
-            <h2 style="color: var(--python-dark); font-size: 2.5rem; margin-bottom: 1rem;">
-                100 Essential Python Concepts
-            </h2>
-            <p style="color: var(--gray); font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
-                Click the checkboxes as you master each concept. Your progress saves automatically!
-            </p>
-        </div>
-        
-        <div class="concepts-grid" id="concepts-container">
-            <!-- Concepts will be loaded here by JavaScript -->
-        </div>
-        
-        <div class="project-showcase">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Fun Projects You'll Build</h2>
-            <p style="opacity: 0.9; max-width: 700px; margin: 0 auto 1rem;">
-                Theory is good, but building things is where the real learning happens!
-            </p>
-            
-            <div class="project-grid">
-                <div class="project-card">
-                    <div class="project-icon">🎮</div>
-                    <h3>Guess the Number Game</h3>
-                    <p>A fun interactive game that teaches loops and conditionals</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Beginner</span>
-                        <span class="project-tag">Game</span>
-                        <span class="project-tag">Loops</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon">💰</div>
-                    <h3>Student Budget Calculator</h3>
-                    <p>Track expenses and calculate savings - useful for campus life!</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Real-life</span>
-                        <span class="project-tag">Calculator</span>
-                        <span class="project-tag">Math</span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon">📊</div>
-                    <h3>Simple Data Analyzer</h3>
-                    <p>Analyze your grades or any dataset with basic statistics</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Data Science</span>
-                        <span class="project-tag">Analysis</span>
-                        <span class="project-tag">Real-world</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="progress-section">
-            <h2 style="color: var(--python-dark); margin-bottom: 1rem;">Your Learning Progress</h2>
-            <p style="color: var(--gray); margin-bottom: 1.5rem;">
-                Track how far you've come on your Python journey!
-            </p>
-            
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
-            </div>
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
-                <div style="text-align: center;">
-                    <div id="progress-percentage" style="font-size: 2.5rem; font-weight: 800; color: var(--python-blue);">0%</div>
-                    <div style="color: var(--gray); font-size: 0.9rem;">Completed</div>
-                </div>
-                <div style="text-align: center;">
-                    <div id="days-estimate" style="font-size: 1.5rem; font-weight: 600; color: var(--python-dark);">28 days</div>
-                    <div style="color: var(--gray); font-size: 0.9rem;">Estimated completion</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="motivation-section">
-            <div class="motivation-quote">
-                "The best time to learn Python was yesterday. The second best time is NOW."
-            </div>
-            <p style="color: var(--python-dark); font-weight: 600;">
-                - Every successful Python developer started exactly where you are today
-            </p>
-        </div>
-        
-        <footer>
-            <div class="footer-content">
-                <h3 style="color: var(--python-yellow); margin-bottom: 1.5rem;">Python Mastery Guide</h3>
-                <p style="opacity: 0.8; margin-bottom: 1.5rem;">
-                    Created with ❤️ by Uzor Blessing Ngozi • Masters in Mathematical Sciences (Data Science)
-                </p>
-                <p style="opacity: 0.8; margin-bottom: 2rem; font-style: italic;">
-                    "If I could learn Python during my Masters, you can definitely start today!"
-                </p>
-                
-                <div class="footer-links">
-                    <a href="#"><i class="fas fa-project-diagram"></i> More Projects</a>
-                    <a href="#"><i class="fas fa-book"></i> Learning Resources</a>
-                    <a href="#"><i class="fas fa-code"></i> Practice Exercises</a>
-                    <a href="#"><i class="fas fa-question-circle"></i> Python FAQ</a>
-                </div>
-                
-                <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">
-                    © 2025 Uzor Blessing Ngozi. This guide is dedicated to all students beginning their programming journey.<br>
-                    Python isn't just a snake - it's your key to the digital world! 🐍💻
-                </p>
-            </div>
-        </footer>
+</div>
+
+<div class="container">
+
+    <div class="story-card">
+        <h2>💡 My Python Journey — From Zero to Hero</h2>
+        <p>Let me be honest — the first time I heard "Python," I thought of a snake! That was me just a few years ago. Coming from a science background, programming seemed like a foreign language spoken only by "tech people." I only discovered what Python <em>really</em> was during my Master's program in Mathematical Sciences.</p>
+        <p><span class="highlight">Here's the twist:</span> I major in Data Science, and Python became my superpower! From analyzing complex datasets to building predictive models, Python transformed my academic journey. Now, I want to help you avoid the confusion I faced.</p>
+        <p>This guide is designed for <span class="highlight">O-Level students</span>, <span class="highlight">fresh graduates</span>, and <span class="highlight">first-year university students</span> in ALL fields — whether you're in Arts, Sciences, Medicine, or Engineering.</p>
     </div>
 
-    <script>
-        // Python Syntax Highlighter
-        function highlightPythonCode(code) {
-            // Python keywords
-            const keywords = [
-                'False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await',
-                'break', 'class', 'continue', 'def', 'del', 'elif', 'else',
-                'except', 'finally', 'for', 'from', 'global', 'if', 'import',
-                'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise',
-                'return', 'try', 'while', 'with', 'yield'
-            ];
-            
-            // Built-in functions
-            const builtins = [
-                'abs', 'all', 'any', 'ascii', 'bin', 'bool', 'breakpoint', 'bytearray',
-                'bytes', 'callable', 'chr', 'classmethod', 'compile', 'complex',
-                'delattr', 'dict', 'dir', 'divmod', 'enumerate', 'eval', 'exec',
-                'filter', 'float', 'format', 'frozenset', 'getattr', 'globals',
-                'hasattr', 'hash', 'help', 'hex', 'id', 'input', 'int', 'isinstance',
-                'issubclass', 'iter', 'len', 'list', 'locals', 'map', 'max', 'memoryview',
-                'min', 'next', 'object', 'oct', 'open', 'ord', 'pow', 'print',
-                'property', 'range', 'repr', 'reversed', 'round', 'set', 'setattr',
-                'slice', 'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple',
-                'type', 'vars', 'zip'
-            ];
-            
-            // Operators
-            const operators = ['=', '==', '!=', '<', '>', '<=', '>=', '\\+', '-', '\\*', '/', '//', '%', '\\*\\*', '\\+=', '-=', '\\*=', '/=', '%=', '&=', '\\|=', '^=', '>>=', '<<=', '\\|', '&', '~', '\\^', '>>', '<<'];
-            
-            // Process each line
-            const lines = code.split('\n');
-            let highlighted = '';
-            
-            for (let line of lines) {
-                let highlightedLine = line;
-                
-                // Handle comments
-                const commentIndex = line.indexOf('#');
-                if (commentIndex !== -1) {
-                    const codePart = line.substring(0, commentIndex);
-                    const commentPart = line.substring(commentIndex);
-                    highlightedLine = codePart + '<span class="code-comment">' + commentPart + '</span>';
-                }
-                
-                // Highlight keywords
-                keywords.forEach(keyword => {
-                    const regex = new RegExp(`\\b${keyword}\\b`, 'g');
-                    highlightedLine = highlightedLine.replace(regex, `<span class="code-keyword">${keyword}</span>`);
-                });
-                
-                // Highlight builtins
-                builtins.forEach(builtin => {
-                    const regex = new RegExp(`\\b${builtin}\\(`, 'g');
-                    highlightedLine = highlightedLine.replace(regex, `<span class="code-builtin">${builtin}</span>(`);
-                });
-                
-                // Highlight numbers
-                highlightedLine = highlightedLine.replace(/\b\d+(\.\d+)?\b/g, '<span class="code-number">$&</span>');
-                
-                // Highlight strings (single and double quotes)
-                highlightedLine = highlightedLine.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="code-string">$&</span>');
-                
-                // Highlight operators
-                operators.forEach(op => {
-                    const regex = new RegExp(`(${op})`, 'g');
-                    highlightedLine = highlightedLine.replace(regex, '<span class="code-operator">$1</span>');
-                });
-                
-                // Highlight function definitions
-                highlightedLine = highlightedLine.replace(/\bdef (\w+)/g, '<span class="code-keyword">def</span> <span class="code-function">$1</span>');
-                
-                // Highlight class definitions
-                highlightedLine = highlightedLine.replace(/\bclass (\w+)/g, '<span class="code-keyword">class</span> <span class="code-class">$1</span>');
-                
-                highlighted += highlightedLine + '\n';
-            }
-            
-            return highlighted.trim();
+    <div class="stats">
+        <div class="stat"><div class="stat-num" id="total-num">100</div><div class="stat-label">Python Concepts</div></div>
+        <div class="stat"><div class="stat-num" id="done-num">0</div><div class="stat-label">Mastered</div></div>
+        <div class="stat"><div class="stat-num" id="left-num">100</div><div class="stat-label">To Learn</div></div>
+        <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Real Projects</div></div>
+    </div>
+
+    <div class="path-box">
+        <h2>Your 4-Week Python Learning Path</h2>
+        <p>Follow this structured path — perfect for busy students!</p>
+        <div class="path-steps">
+            <div class="step"><div class="step-num">1</div><h3>Week 1: Basics</h3><p class="step-sub">Variables, data types, and your first program</p></div>
+            <div class="step"><div class="step-num">2</div><h3>Week 2: Logic</h3><p class="step-sub">Conditionals, loops, and problem solving</p></div>
+            <div class="step"><div class="step-num">3</div><h3>Week 3: Functions</h3><p class="step-sub">Reusable code and mini-projects</p></div>
+            <div class="step"><div class="step-num">4</div><h3>Week 4: Projects</h3><p class="step-sub">Build real applications</p></div>
+        </div>
+    </div>
+
+    <div class="section-head">
+        <h2>100 Essential Python Concepts</h2>
+        <p>Tick the checkboxes as you master each concept. Your progress saves automatically!</p>
+    </div>
+
+    <div class="search-wrap">
+        <input id="search-box" type="text" placeholder="🔍 Search concepts, topics, or tags...">
+    </div>
+
+    <div class="concepts-grid" id="concepts-container"></div>
+
+    <div class="projects">
+        <h2>Fun Projects You'll Build</h2>
+        <p>Theory is good, but building things is where real learning happens!</p>
+        <div class="proj-grid">
+            <div class="proj-card">
+                <div class="proj-icon">🎮</div>
+                <h3>Guess the Number Game</h3>
+                <p>A fun interactive game that teaches loops and conditionals</p>
+                <div class="proj-tags"><span class="proj-tag">Beginner</span><span class="proj-tag">Game</span><span class="proj-tag">Loops</span></div>
+            </div>
+            <div class="proj-card">
+                <div class="proj-icon">💰</div>
+                <h3>Student Budget Calculator</h3>
+                <p>Track expenses and savings — useful for campus life!</p>
+                <div class="proj-tags"><span class="proj-tag">Real-life</span><span class="proj-tag">Calculator</span><span class="proj-tag">Math</span></div>
+            </div>
+            <div class="proj-card">
+                <div class="proj-icon">📊</div>
+                <h3>Simple Data Analyzer</h3>
+                <p>Analyze your grades or any dataset with basic statistics</p>
+                <div class="proj-tags"><span class="proj-tag">Data Science</span><span class="proj-tag">Analysis</span><span class="proj-tag">Real-world</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-box">
+        <h2>Your Learning Progress</h2>
+        <p>Track how far you've come on your Python journey!</p>
+        <div class="bar-wrap"><div class="bar-fill" id="bar-fill"></div></div>
+        <div class="prog-nums">
+            <div><div class="prog-num" id="pct">0%</div><div class="prog-label">Completed</div></div>
+            <div><div class="prog-num" id="days-left">28 days</div><div class="prog-label">Estimated Time Left</div></div>
+        </div>
+    </div>
+
+    <div class="motivation">
+        <blockquote>"The best time to learn Python was yesterday. The second best time is NOW."</blockquote>
+        <cite>— Every successful Python developer started exactly where you are today</cite>
+    </div>
+
+</div>
+
+<footer>
+    <div>
+        <h3>Python Mastery Guide 🐍</h3>
+        <p>Created with ❤️ by <strong>Uzor Blessing Ngozi</strong> · Masters in Mathematical Sciences (Data Science)</p>
+        <p><em>"If I could learn Python during my Masters, you can definitely start today!"</em></p>
+        <div class="footer-links">
+            <a href="#"><i class="fas fa-project-diagram"></i> More Projects</a>
+            <a href="#"><i class="fas fa-book"></i> Learning Resources</a>
+            <a href="#"><i class="fas fa-code"></i> Practice Exercises</a>
+            <a href="#"><i class="fas fa-question-circle"></i> Python FAQ</a>
+        </div>
+        <p style="margin-top:1.5rem; opacity:0.5; font-size:0.82rem;">© 2025 Uzor Blessing Ngozi. Dedicated to all students beginning their programming journey.</p>
+    </div>
+</footer>
+
+<script>
+// ─── SAFE TOKENIZER (no regex overlap, no HTML mangling) ─────────────────────
+// Converts a raw Python source string into HTML-highlighted markup
+// by processing character-by-character into tokens, THEN escaping.
+
+const KEYWORDS = new Set([
+    'False','None','True','and','as','assert','async','await','break','class',
+    'continue','def','del','elif','else','except','finally','for','from',
+    'global','if','import','in','is','lambda','nonlocal','not','or','pass',
+    'raise','return','try','while','with','yield'
+]);
+
+const BUILTINS = new Set([
+    'abs','all','any','ascii','bin','bool','breakpoint','bytearray','bytes',
+    'callable','chr','classmethod','compile','complex','delattr','dict','dir',
+    'divmod','enumerate','eval','exec','filter','float','format','frozenset',
+    'getattr','globals','hasattr','hash','help','hex','id','input','int',
+    'isinstance','issubclass','iter','len','list','locals','map','max',
+    'memoryview','min','next','object','oct','open','ord','pow','print',
+    'property','range','repr','reversed','round','set','setattr','slice',
+    'sorted','staticmethod','str','sum','super','tuple','type','vars','zip'
+]);
+
+function esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function span(cls, s) {
+    return `<span class="tok-${cls}">${esc(s)}</span>`;
+}
+
+function tokenizePython(src) {
+    let i = 0, out = '';
+    const len = src.length;
+
+    while (i < len) {
+        // Comment
+        if (src[i] === '#') {
+            let j = i;
+            while (j < len && src[j] !== '\n') j++;
+            out += span('comment', src.slice(i, j));
+            i = j;
+            continue;
         }
 
-        // Comprehensive Python Concepts Data with PROPER CODE
-        const pythonConcepts = [
-            {
-                id: 1,
-                title: "What is Python? (Not the snake!)",
-                description: "Python is a programming language that's easy to read and write. It's used for web development, data science, AI, and much more!",
-                level: "beginner",
-                category: "basics",
-                code: `# This is Python code - it looks almost like English!
-print("Hello, World!")  # This prints text
-print(2 + 3)           # This does math
+        // Triple-quoted string
+        if ((src[i] === '"' || src[i] === "'") &&
+            src[i+1] === src[i] && src[i+2] === src[i]) {
+            const q = src.slice(i, i+3);
+            let j = i + 3;
+            while (j < len && src.slice(j, j+3) !== q) j++;
+            j += 3;
+            out += span('string', src.slice(i, j));
+            i = j;
+            continue;
+        }
+
+        // Single-quoted string
+        if (src[i] === '"' || src[i] === "'") {
+            const q = src[i];
+            let j = i + 1;
+            while (j < len && src[j] !== q && src[j] !== '\n') {
+                if (src[j] === '\\') j++;
+                j++;
+            }
+            if (j < len) j++;
+            out += span('string', src.slice(i, j));
+            i = j;
+            continue;
+        }
+
+        // Number (int or float)
+        if (src[i] >= '0' && src[i] <= '9') {
+            let j = i;
+            while (j < len && (
+                (src[j] >= '0' && src[j] <= '9') ||
+                src[j] === '.' || src[j] === '_' ||
+                src[j] === 'e' || src[j] === 'E' ||
+                src[j] === 'x' || src[j] === 'X' ||
+                (src[j] >= 'a' && src[j] <= 'f') ||
+                (src[j] >= 'A' && src[j] <= 'F')
+            )) j++;
+            out += span('number', src.slice(i, j));
+            i = j;
+            continue;
+        }
+
+        // Identifier / keyword / builtin
+        if ((src[i] >= 'a' && src[i] <= 'z') ||
+            (src[i] >= 'A' && src[i] <= 'Z') ||
+            src[i] === '_') {
+            let j = i;
+            while (j < len && (
+                (src[j] >= 'a' && src[j] <= 'z') ||
+                (src[j] >= 'A' && src[j] <= 'Z') ||
+                (src[j] >= '0' && src[j] <= '9') ||
+                src[j] === '_'
+            )) j++;
+            const word = src.slice(i, j);
+            if (KEYWORDS.has(word)) {
+                out += span('keyword', word);
+            } else if (BUILTINS.has(word)) {
+                out += span('builtin', word);
+            } else {
+                // check if followed by '(' → function call
+                let k = j;
+                while (k < len && src[k] === ' ') k++;
+                if (src[k] === '(') {
+                    out += span('func', word);
+                } else {
+                    out += esc(word);
+                }
+            }
+            i = j;
+            continue;
+        }
+
+        // Newline — just pass through
+        if (src[i] === '\n') { out += '\n'; i++; continue; }
+
+        // Everything else (operators, punctuation, whitespace)
+        out += esc(src[i]);
+        i++;
+    }
+    return out;
+}
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const CONCEPTS = [
+    {
+        id: 1, level: 'beginner',
+        title: 'What is Python? (Not the snake!)',
+        desc: 'Python is a programming language that\'s easy to read and write. Used for web development, data science, AI, automation, and much more!',
+        code:
+`# This is Python code - it looks almost like English!
+print("Hello, World!")    # Prints text to the screen
+print(2 + 3)              # Python can do math too
 print("Python is awesome!")`,
-                tags: ["introduction", "basics", "first-program"]
-            },
-            {
-                id: 2,
-                title: "Variables: Your Data Containers",
-                description: "Variables store information. Think of them as labeled boxes where you keep your data.",
-                level: "beginner",
-                category: "basics",
-                code: `# Creating variables
-name = "Chinedu"      # Text (string)
-age = 18              # Number (integer)
-height = 1.75         # Decimal (float)
-is_student = True     # True/False (boolean)
+        tags: ['introduction','basics','first-program']
+    },
+    {
+        id: 2, level: 'beginner',
+        title: 'Variables: Your Data Containers',
+        desc: 'Variables store information. Think of them as labeled boxes where you keep your data.',
+        code:
+`# Creating variables
+name       = "Chinedu"    # Text (string)
+age        = 18           # Whole number (integer)
+height     = 1.75         # Decimal number (float)
+is_student = True         # True or False (boolean)
 
 # Using variables
 print("Name:", name)
-print("Age next year:", age + 1)`,
-                tags: ["variables", "data-types", "basics"]
-            },
-            {
-                id: 3,
-                title: "Data Types in Python",
-                description: "Different kinds of data: text, numbers, true/false values, and collections.",
-                level: "beginner",
-                category: "basics",
-                code: `# String - for text
+print("Age next year:", age + 1)
+print("Is a student:", is_student)`,
+        tags: ['variables','data-types','basics']
+    },
+    {
+        id: 3, level: 'beginner',
+        title: 'Data Types in Python',
+        desc: 'Different kinds of data: text (str), whole numbers (int), decimals (float), true/false (bool), and collections (list).',
+        code:
+`# String — for text
 university = "University of Lagos"
-course = "Computer Science"
+course     = "Computer Science"
 
-# Integer - whole numbers
-credits = 120
+# Integer — whole numbers
+credits  = 120
 semester = 1
 
-# Float - decimal numbers
-gpa = 4.25
+# Float — decimal numbers
+gpa         = 4.25
 temperature = 36.5
 
-# Boolean - True or False
+# Boolean — True or False
 passed_exam = True
-is_weekend = False
+is_weekend  = False
 
-# List - collection of items
-subjects = ["Math", "Physics", "Chemistry"]`,
-                tags: ["strings", "integers", "floats", "booleans", "lists"]
-            },
-            {
-                id: 4,
-                title: "Getting User Input",
-                description: "Make your programs interactive by asking users for information.",
-                level: "beginner",
-                category: "basics",
-                code: `# Getting input from user
+# List — collection of items
+subjects = ["Math", "Physics", "Chemistry"]
+
+# Check the type of any variable
+print(type(university))   # <class 'str'>
+print(type(gpa))          # <class 'float'>`,
+        tags: ['str','int','float','bool','list','types']
+    },
+    {
+        id: 4, level: 'beginner',
+        title: 'Getting User Input',
+        desc: 'Make your programs interactive by asking users for information with the input() function.',
+        code:
+`# input() always returns a string
 name = input("What is your name? ")
-age = input("How old are you? ")
+age  = input("How old are you? ")
 
-# Convert age to number (input always gives string)
+# Convert to number before doing math
 age = int(age)
 
-# Use the input
-print(f"Hello {name}! Next year you'll be {age + 1} years old.")
+print(f"Hello {name}! Next year you'll be {age + 1}.")
 
-# Another example
+# Another real example
 score = float(input("Enter your exam score: "))
+
 if score >= 50:
     print("Congratulations! You passed!")
 else:
-    print("Try again next time.")`,
-                tags: ["input", "interactive", "user-input"]
-            },
-            {
-                id: 5,
-                title: "If-Else Statements: Making Decisions",
-                description: "Programs that can make decisions based on conditions - like a digital brain!",
-                level: "beginner",
-                category: "logic",
-                code: `# Basic if-else
-score = 75
+    print("Keep trying — you'll get there!")`,
+        tags: ['input','interactive','beginner']
+    },
+    {
+        id: 5, level: 'beginner',
+        title: 'If-Else: Making Decisions',
+        desc: 'Programs that can choose different actions based on conditions — like a digital decision-maker.',
+        code:
+`score = 75
 
 if score >= 70:
-    print("Grade: A")
-    print("Excellent work!")
+    print("Grade: A — Excellent!")
 elif score >= 60:
-    print("Grade: B")
-    print("Good job!")
+    print("Grade: B — Good job!")
 elif score >= 50:
-    print("Grade: C")
-    print("You passed!")
+    print("Grade: C — You passed!")
 else:
-    print("Grade: F")
-    print("Please try again.")
+    print("Grade: F — Please try again.")
 
-# Real-life example
-balance = 5000
-withdrawal = int(input("How much to withdraw? "))
+# Real-world: simple ATM check
+balance    = 5000
+withdrawal = 2000
 
 if withdrawal <= balance:
-    balance = balance - withdrawal
-    print(f"Withdrawal successful. New balance: ₦{balance}")
+    balance -= withdrawal
+    print(f"Withdrawn. New balance: ₦{balance}")
 else:
     print("Insufficient funds!")`,
-                tags: ["if-else", "conditions", "decision-making"]
-            },
-            {
-                id: 6,
-                title: "For Loops: Repeating Actions",
-                description: "Automate repetitive tasks - essential for processing data or lists.",
-                level: "beginner",
-                category: "logic",
-                code: `# Basic for loop
-print("Count from 1 to 5:")
+        tags: ['if-else','conditions','logic']
+    },
+    {
+        id: 6, level: 'beginner',
+        title: 'For Loops: Repeating Actions',
+        desc: 'Automate repetitive tasks — essential for processing lists of data without writing the same line over and over.',
+        code:
+`# Loop through a range of numbers
 for number in range(1, 6):
     print(number)
 
 # Loop through a list
-subjects = ["Mathematics", "English", "Physics", "Chemistry"]
-print("\\nYour subjects this semester:")
+subjects = ["Mathematics", "English", "Physics"]
 for subject in subjects:
     print(f"- {subject}")
 
-# Calculate total marks
+# Calculate total and average
 marks = [85, 92, 78, 88, 95]
 total = 0
 for mark in marks:
-    total = total + mark
-print(f"\\nTotal marks: {total}")
-print(f"Average: {total/len(marks):.1f}")`,
-                tags: ["for-loop", "loops", "iteration"]
-            },
-            {
-                id: 7,
-                title: "While Loops: Keep Going Until...",
-                description: "Keep doing something until a condition is met. Great for games and menus!",
-                level: "beginner",
-                category: "logic",
-                code: `# Simple counter
+    total += mark
+
+average = total / len(marks)
+print(f"Total:   {total}")
+print(f"Average: {average:.1f}")`,
+        tags: ['for-loop','iteration','lists']
+    },
+    {
+        id: 7, level: 'beginner',
+        title: 'While Loops: Keep Going Until…',
+        desc: 'Repeat code as long as a condition is true. Great for menus, games, and validation.',
+        code:
+`# Simple counter
 count = 1
 while count <= 5:
     print(f"Count: {count}")
-    count = count + 1
+    count += 1
 
-# Password checker
+# Password validator
 password = ""
 while password != "python123":
     password = input("Enter password: ")
     if password != "python123":
-        print("Wrong password! Try again.")
+        print("Wrong! Try again.")
+
 print("Access granted!")
 
-# ATM Menu Example
+# Menu-driven ATM
 balance = 10000
-choice = ""
+running = True
 
-while choice != "4":
-    print("\\n=== ATM MENU ===")
-    print("1. Check Balance")
-    print("2. Deposit Money")
-    print("3. Withdraw Money")
-    print("4. Exit")
-    
-    choice = input("Enter choice (1-4): ")
-    
+while running:
+    print("\\n1. Check Balance  2. Withdraw  3. Exit")
+    choice = input("Your choice: ")
+
     if choice == "1":
-        print(f"Your balance: ₦{balance}")
+        print(f"Balance: ₦{balance}")
     elif choice == "2":
-        amount = float(input("Deposit amount: "))
-        balance += amount
-        print(f"New balance: ₦{balance}")
-    elif choice == "3":
-        amount = float(input("Withdraw amount: "))
+        amount = float(input("Amount: "))
         if amount <= balance:
             balance -= amount
-            print(f"New balance: ₦{balance}")
+            print(f"Done. New balance: ₦{balance}")
         else:
-            print("Insufficient funds!")
-    elif choice == "4":
-        print("Thank you for banking with us!")
-    else:
-        print("Invalid choice!")`,
-                tags: ["while-loop", "loops", "menus", "games"]
-            },
-            {
-                id: 8,
-                title: "Functions: Reusable Code Blocks",
-                description: "Create your own commands that can be reused anywhere in your program.",
-                level: "intermediate",
-                category: "functions",
-                code: `# Basic function
+            print("Not enough funds.")
+    elif choice == "3":
+        running = False
+        print("Goodbye!")`,
+        tags: ['while-loop','menus','games','validation']
+    },
+    {
+        id: 8, level: 'intermediate',
+        title: 'Functions: Reusable Code Blocks',
+        desc: 'Define your own commands (functions) once and call them as many times as you need.',
+        code:
+`# Basic function — no parameters
 def greet():
-    print("Hello! Welcome to Python programming.")
+    print("Welcome to Python programming!")
 
-# Using the function
 greet()
 greet()
 
-# Function with parameters
+# Function with a parameter
 def greet_person(name):
     print(f"Hello {name}! Nice to meet you.")
 
@@ -1024,531 +822,939 @@ greet_person("Chukwuemeka")
 
 # Function that returns a value
 def calculate_average(marks):
-    total = sum(marks)
-    average = total / len(marks)
-    return average
+    return sum(marks) / len(marks)
 
-# Using the function
 student_marks = [85, 92, 78, 88, 95]
-result = calculate_average(student_marks)
-print(f"Average marks: {result:.1f}")
+avg = calculate_average(student_marks)
+print(f"Average: {avg:.1f}")
 
-# Real-life example: GPA Calculator
+# GPA Calculator
 def calculate_gpa(grades, credits):
-    """Calculate GPA from grades and credit hours"""
-    total_points = 0
-    total_credits = 0
-    
-    for i in range(len(grades)):
-        total_points += grades[i] * credits[i]
-        total_credits += credits[i]
-    
-    gpa = total_points / total_credits
-    return gpa
+    """Calculate weighted GPA."""
+    total_points  = sum(g * c for g, c in zip(grades, credits))
+    total_credits = sum(credits)
+    return total_points / total_credits
 
-# Example usage
-grades = [4.0, 3.5, 3.0, 4.0]  # A, B+, B, A
-credits = [3, 3, 2, 3]
-gpa = calculate_gpa(grades, credits)
-print(f"Your GPA is: {gpa:.2f}")`,
-                tags: ["functions", "reusable", "modular"]
-            },
-            {
-                id: 9,
-                title: "Lists: Your Data Collection",
-                description: "Store multiple items in one variable - perfect for grades, names, or any collection.",
-                level: "beginner",
-                category: "data-structures",
-                code: `# Creating lists
-students = ["Aisha", "Bola", "Chinedu", "David"]
-grades = [85, 92, 78, 88]
+gpa = calculate_gpa([4.0, 3.5, 3.0, 4.0], [3, 3, 2, 3])
+print(f"Your GPA: {gpa:.2f}")`,
+        tags: ['functions','def','return','reusable']
+    },
+    {
+        id: 9, level: 'beginner',
+        title: 'Lists: Ordered Collections',
+        desc: 'Store multiple items in one variable — perfect for grades, names, or any collection of related data.',
+        code:
+`students = ["Aisha", "Bola", "Chinedu", "David"]
+grades   = [85, 92, 78, 88]
 
-# Accessing list items
-print(f"First student: {students[0]}")
-print(f"Last student: {students[-1]}")
+# Access by index (starts at 0)
+print(students[0])    # Aisha
+print(students[-1])   # David  (last item)
 
-# Modifying lists
-students.append("Ebele")  # Add to end
-print(f"After adding: {students}")
+# Modify the list
+students.append("Ebele")       # Add to end
+students.insert(2, "Fatima")   # Insert at index 2
+students.remove("Bola")        # Remove by value
 
-students.insert(2, "Fatima")  # Insert at position
-print(f"After inserting: {students}")
+print(students)
 
-# List operations
-grades.sort()  # Sort ascending
-print(f"Sorted grades: {grades}")
-
-print(f"Highest grade: {max(grades)}")
-print(f"Lowest grade: {min(grades)}")
-print(f"Number of students: {len(students)}")
-
-# Practical example: Student Records
-student_records = [
-    ["A001", "Aisha", 85],
-    ["A002", "Bola", 92],
-    ["A003", "Chinedu", 78]
-]
-
-print("\\nStudent Records:")
-for record in student_records:
-    id, name, grade = record
-    print(f"ID: {id}, Name: {name}, Grade: {grade}")`,
-                tags: ["lists", "arrays", "collections"]
-            },
-            {
-                id: 10,
-                title: "Dictionaries: Key-Value Pairs",
-                description: "Store data with labels (keys) - like a digital dictionary or phone book.",
-                level: "intermediate",
-                category: "data-structures",
-                code: `# Creating a dictionary
-student = {
-    "name": "Aisha Bello",
-    "age": 19,
-    "major": "Computer Science",
-    "gpa": 4.2,
+# Useful list operations
+grades.sort()
+print("Sorted:", grades)
+print("Highest:", max(grades))
+print("Lowest:", min(grades))
+print("Count:", len(students))`,
+        tags: ['list','append','sort','index','collections']
+    },
+    {
+        id: 10, level: 'intermediate',
+        title: 'Dictionaries: Key-Value Pairs',
+        desc: 'Store data with descriptive labels (keys). Like a digital profile or phone book entry.',
+        code:
+`student = {
+    "name":    "Aisha Bello",
+    "age":     19,
+    "major":   "Computer Science",
+    "gpa":     4.2,
     "courses": ["Python", "Calculus", "Physics"]
 }
 
-# Accessing values
-print(f"Student Name: {student['name']}")
-print(f"Major: {student['major']}")
-print(f"Taking {len(student['courses'])} courses")
+# Read values
+print(student["name"])
+print(student["gpa"])
 
-# Modifying dictionaries
-student["graduation_year"] = 2026  # Add new key
-student["gpa"] = 4.3  # Update value
+# Add / update
+student["year"]  = 2            # new key
+student["gpa"]   = 4.3          # update existing
 
-# Looping through dictionaries
-print("\\nStudent Information:")
+# Loop through
 for key, value in student.items():
-    print(f"{key}: {value}")
+    print(f"{key:10}: {value}")
 
-# Practical example: Course Catalog
-courses = {
-    "CSC101": {
-        "name": "Introduction to Programming",
-        "credits": 3,
-        "prerequisites": []
+# Check if a key exists
+if "name" in student:
+    print("Name found!")`,
+        tags: ['dict','key-value','json-like','data']
     },
-    "CSC201": {
-        "name": "Data Structures",
-        "credits": 3,
-        "prerequisites": ["CSC101"]
+    {
+        id: 11, level: 'beginner',
+        title: 'String Methods',
+        desc: 'Python gives you dozens of built-in tools to work with text: case conversion, searching, splitting, and more.',
+        code:
+`name  = "  Chinedu Obi  "
+email = "student@university.edu.ng"
+
+# Cleaning up
+print(name.strip())          # remove whitespace
+print(name.strip().upper())  # CHINEDU OBI
+print(name.strip().lower())  # chinedu obi
+
+# Searching
+print("@" in email)          # True
+print(email.startswith("student"))  # True
+print(email.endswith(".ng"))        # True
+
+# Splitting and joining
+parts = email.split("@")
+print(parts)                 # ['student', 'university.edu.ng']
+
+words = "Python is fun".split()
+print(" | ".join(words))     # Python | is | fun
+
+# Replacing text
+sentence = "I love Java programming"
+fixed = sentence.replace("Java", "Python")
+print(fixed)`,
+        tags: ['strings','methods','text','strip','split']
     },
-    "MAT101": {
-        "name": "Calculus I",
-        "credits": 4,
-        "prerequisites": []
-    }
-}
+    {
+        id: 12, level: 'beginner',
+        title: 'F-Strings: Easy String Formatting',
+        desc: 'The modern Pythonic way to embed variables inside strings — clean, readable, and powerful.',
+        code:
+`name   = "Ngozi"
+score  = 87.5
+passed = True
 
-print("\\nCourse Catalog:")
-for code, info in courses.items():
-    print(f"{code}: {info['name']} ({info['credits']} credits)")`,
-                tags: ["dictionaries", "key-value", "data-structures"]
-            }
-        ];
+# Basic f-string
+print(f"Name: {name}")
+print(f"Score: {score}")
 
-        // Generate remaining 90 concepts with PROPER CODE
-        const conceptTemplates = [
-            {
-                title: "String Manipulation",
-                description: "Working with text data - combining, searching, and formatting strings.",
-                level: "beginner",
-                category: "basics",
-                code: `name = "Chinedu"
-course = "Computer Science"
+# Expressions inside f-strings
+print(f"Next year I'll be {18 + 1} years old")
 
-# String operations
-full_intro = name + " studies " + course
-print(full_intro)
+# Formatting numbers
+pi = 3.14159265
+print(f"Pi to 2 decimal places: {pi:.2f}")
+print(f"Pi to 4 decimal places: {pi:.4f}")
 
-# f-strings (modern way)
-print(f"{name} is a {course} student")
+# Padding / alignment
+for subject, mark in [("Math", 95), ("English", 82), ("Physics", 78)]:
+    print(f"{subject:<12} {mark:>3}")`,
+        tags: ['f-string','formatting','string','print']
+    },
+    {
+        id: 13, level: 'beginner',
+        title: 'Math Operations',
+        desc: 'Python handles all arithmetic and advanced math via the built-in math module.',
+        code:
+`a, b = 15, 4
 
-# String methods
-print(name.upper())  # CHINEDU
-print(course.lower())  # computer science
-print("  Hello  ".strip())  # Hello
+print(f"{a} + {b}  = {a + b}")
+print(f"{a} - {b}  = {a - b}")
+print(f"{a} * {b}  = {a * b}")
+print(f"{a} / {b}  = {a / b}")   # float division
+print(f"{a} // {b} = {a // b}")  # floor division
+print(f"{a} % {b}  = {a % b}")   # remainder
+print(f"{a} ** {b} = {a ** b}")  # power
 
-# Checking strings
-email = "student@uni.edu.ng"
-if "@" in email:
-    print("Valid email format")
-else:
-    print("Invalid email")`,
-                tags: ["strings", "text", "formatting"]
-            },
-            {
-                title: "Math Operations",
-                description: "Python can handle all your mathematical needs - from basic arithmetic to complex calculations.",
-                level: "beginner",
-                category: "basics",
-                code: `# Basic arithmetic
-a = 15
-b = 4
-
-print(f"{a} + {b} = {a + b}")
-print(f"{a} - {b} = {a - b}")
-print(f"{a} * {b} = {a * b}")
-print(f"{a} / {b} = {a / b}")  # Regular division
-print(f"{a} // {b} = {a // b}")  # Integer division
-print(f"{a} % {b} = {a % b}")  # Modulus (remainder)
-print(f"{a} ** {b} = {a ** b}")  # Exponentiation
-
-# Math module for advanced operations
+# Math module
 import math
+print(math.sqrt(16))          # 4.0
+print(math.ceil(4.1))         # 5
+print(math.floor(4.9))        # 4
+print(round(3.14159, 2))      # 3.14
 
-print(f"Square root of 16: {math.sqrt(16)}")
-print(f"Value of pi: {math.pi}")
-print(f"Factorial of 5: {math.factorial(5)}")
-
-# Practical: Calculate compound interest
+# Compound interest
 principal = 10000
-rate = 5  # percentage
-time = 3  # years
+rate, years = 5, 3
+amount = principal * (1 + rate / 100) ** years
+print(f"After {years} years: ₦{amount:.2f}")`,
+        tags: ['math','arithmetic','operators','import']
+    },
+    {
+        id: 14, level: 'beginner',
+        title: 'Boolean Logic & Comparisons',
+        desc: 'True/False values and comparison operators are the building blocks of all decision-making in code.',
+        code:
+`# Comparison operators
+print(5 > 3)    # True
+print(5 < 3)    # False
+print(5 == 5)   # True  (equality — double equals!)
+print(5 != 3)   # True  (not equal)
+print(5 >= 5)   # True
+print(4 <= 3)   # False
 
-amount = principal * (1 + rate/100) ** time
-print(f"Investment after {time} years: ₦{amount:.2f}")`,
-                tags: ["math", "arithmetic", "calculations"]
-            },
-            {
-                title: "Working with Files",
-                description: "Read from and write to files - essential for saving data permanently.",
-                level: "intermediate",
-                category: "file-io",
-                code: `# Writing to a file
-with open("grades.txt", "w") as file:
-    file.write("Student Grades\\n")
-    file.write("Aisha: 85\\n")
-    file.write("Bola: 92\\n")
-    file.write("Chinedu: 78\\n")
-print("Grades saved to file!")
+# Logical operators
+age     = 20
+has_id  = True
 
-# Reading from a file
-print("\\nReading grades:")
-with open("grades.txt", "r") as file:
-    content = file.read()
-    print(content)
+can_vote = age >= 18 and has_id
+print(f"Can vote: {can_vote}")
 
-# Appending to a file
-with open("grades.txt", "a") as file:
-    file.write("David: 88\\n")
-    file.write("Ebele: 91\\n")
+is_open = True
+is_holiday = False
+shop_available = is_open and not is_holiday
+print(f"Shop available: {shop_available}")
 
-# Practical: Student Attendance Tracker
-with open("attendance.txt", "a") as file:
-    name = input("Enter student name: ")
-    date = input("Enter date (DD/MM/YYYY): ")
-    status = input("Present? (yes/no): ")
-    
-    file.write(f"{date}, {name}, {status}\\n")
-    print("Attendance recorded!")`,
-                tags: ["files", "input-output", "storage"]
-            },
-            {
-                title: "Error Handling with Try-Except",
-                description: "Make your programs robust by handling errors gracefully.",
-                level: "intermediate",
-                category: "error-handling",
-                code: `# Basic error handling
+# Combining conditions
+score = 75
+if score >= 70 and score < 80:
+    print("Grade B")`,
+        tags: ['boolean','logic','and','or','not','comparison']
+    },
+    {
+        id: 15, level: 'beginner',
+        title: 'Tuples: Immutable Sequences',
+        desc: 'Like lists, but they cannot be changed after creation. Perfect for fixed data like coordinates or RGB colors.',
+        code:
+`# Creating tuples
+coordinates = (6.5244, 3.3792)   # Lagos lat/lon
+rgb_red     = (255, 0, 0)
+student_id  = ("S2024001", "Aisha Bello")
+
+# Accessing elements
+print(coordinates[0])    # 6.5244 (latitude)
+print(student_id[1])     # Aisha Bello
+
+# Unpacking (very useful!)
+lat, lon = coordinates
+print(f"Lat: {lat}, Lon: {lon}")
+
+first_name, last_name = "Aisha", "Bello"
+print(f"{first_name} {last_name}")
+
+# Tuples in a list (table-like data)
+students = [
+    ("A001", "Aisha",   85),
+    ("A002", "Bola",    92),
+    ("A003", "Chinedu", 78),
+]
+for sid, name, grade in students:
+    print(f"{sid}: {name} — {grade}")`,
+        tags: ['tuple','immutable','unpacking','coordinates']
+    },
+    {
+        id: 16, level: 'intermediate',
+        title: 'Sets: Unique Collections',
+        desc: 'Sets store only unique values and support fast membership testing. Great for removing duplicates.',
+        code:
+`# Creating a set
+fruits = {"apple", "banana", "orange", "apple"}
+print(fruits)   # duplicates removed automatically
+
+# Check membership (very fast)
+print("apple" in fruits)     # True
+print("grape" in fruits)     # False
+
+# Adding and removing
+fruits.add("mango")
+fruits.discard("banana")     # no error if missing
+print(fruits)
+
+# Set operations
+class_a = {"Aisha", "Bola", "Chinedu"}
+class_b = {"Bola", "David", "Ebele"}
+
+print(class_a & class_b)    # intersection (both classes)
+print(class_a | class_b)    # union (all students)
+print(class_a - class_b)    # only in class_a
+
+# Remove duplicates from a list
+marks = [85, 92, 85, 78, 92, 88]
+unique_marks = list(set(marks))
+print(unique_marks)`,
+        tags: ['set','unique','intersection','union','duplicates']
+    },
+    {
+        id: 17, level: 'intermediate',
+        title: 'List Comprehensions',
+        desc: 'Create lists in one elegant line. A Python superpower for data transformation!',
+        code:
+`# Traditional loop vs comprehension
+squares_loop = []
+for x in range(1, 6):
+    squares_loop.append(x ** 2)
+
+squares = [x ** 2 for x in range(1, 6)]
+print(squares)    # [1, 4, 9, 16, 25]
+
+# With a filter (if clause)
+evens = [x for x in range(20) if x % 2 == 0]
+print(evens)
+
+# Transform grades to letter grades
+grades = [85, 92, 78, 88, 95, 55]
+letters = [
+    "A" if g >= 90 else
+    "B" if g >= 80 else
+    "C" if g >= 70 else
+    "F"
+    for g in grades
+]
+print(letters)
+
+# Dictionary comprehension
+students = ["Aisha", "Bola", "Chinedu"]
+scores   = [85, 92, 78]
+report   = {s: g for s, g in zip(students, scores)}
+print(report)`,
+        tags: ['comprehension','list','dict','filter','transform']
+    },
+    {
+        id: 18, level: 'intermediate',
+        title: 'Error Handling with Try-Except',
+        desc: 'Write robust programs that handle unexpected input or missing files without crashing.',
+        code:
+`# Catch a ValueError (invalid input)
 try:
     age = int(input("Enter your age: "))
     print(f"Next year you'll be {age + 1}")
 except ValueError:
     print("Please enter a valid number!")
 
-# Handling multiple errors
+# Multiple exception types
 try:
-    num1 = float(input("Enter first number: "))
-    num2 = float(input("Enter second number: "))
-    result = num1 / num2
-    print(f"Result: {result}")
+    num1 = float(input("First number:  "))
+    num2 = float(input("Second number: "))
+    print(f"Result: {num1 / num2}")
 except ValueError:
-    print("Please enter valid numbers!")
+    print("Enter valid numbers!")
 except ZeroDivisionError:
     print("Cannot divide by zero!")
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print(f"Unexpected error: {e}")
+finally:
+    print("Calculation attempt done.")
 
-# Practical: Safe file operations
-filename = input("Enter filename to read: ")
+# Safe file reading
 try:
-    with open(filename, "r") as file:
-        print(file.read())
+    with open("data.txt", "r") as f:
+        print(f.read())
 except FileNotFoundError:
-    print(f"File '{filename}' not found!")
-except PermissionError:
-    print("You don't have permission to read this file!")
-except Exception as e:
-    print(f"Error reading file: {e}")`,
-                tags: ["try-except", "error-handling", "exceptions"]
-            },
-            {
-                title: "Modules and Importing",
-                description: "Use code written by others or organize your own code into modules.",
-                level: "intermediate",
-                category: "modules",
-                code: `# Importing built-in modules
-import math
+    print("File not found!")`,
+        tags: ['try','except','error-handling','finally','robust']
+    },
+    {
+        id: 19, level: 'intermediate',
+        title: 'Working with Files',
+        desc: 'Read and write files to store data permanently on disk.',
+        code:
+`# Writing to a file
+with open("grades.txt", "w") as file:
+    file.write("Student Grades\\n")
+    file.write("Aisha: 85\\n")
+    file.write("Bola:  92\\n")
+print("File saved!")
+
+# Reading the whole file
+with open("grades.txt", "r") as file:
+    content = file.read()
+    print(content)
+
+# Reading line by line
+with open("grades.txt", "r") as file:
+    for line in file:
+        print(line.strip())
+
+# Appending without overwriting
+with open("grades.txt", "a") as file:
+    file.write("Chinedu: 78\\n")
+print("Appended!")`,
+        tags: ['file','read','write','append','open']
+    },
+    {
+        id: 20, level: 'intermediate',
+        title: 'Modules and Importing',
+        desc: 'Unlock Python\'s vast library ecosystem — random numbers, dates, math, and more with a single import.',
+        code:
+`import math
 import random
 import datetime
 
-# Using math module
-print(f"Square root of 25: {math.sqrt(25)}")
-print(f"Value of pi: {math.pi:.2f}")
+# math module
+print(math.sqrt(25))         # 5.0
+print(math.pi)               # 3.14159...
+print(math.factorial(5))     # 120
 
-# Using random module
-print(f"\\nRandom number (1-10): {random.randint(1, 10)}")
-students = ["Aisha", "Bola", "Chinedu", "David"]
-print(f"Random student: {random.choice(students)}")
+# random module
+print(random.randint(1, 100))          # random int
+print(random.choice(["A","B","C"]))    # random item
+names = ["Aisha", "Bola", "Chinedu"]
+random.shuffle(names)
+print(names)
 
-# Using datetime module
+# datetime module
 now = datetime.datetime.now()
-print(f"\\nCurrent date/time: {now}")
-print(f"Today's date: {now.date()}")
-print(f"Current year: {now.year}")
+print(f"Today: {now.strftime('%d %B %Y')}")
+print(f"Time:  {now.strftime('%H:%M')}")
 
-# Creating your own module
-# Save this as calculator.py:
-'''
-def add(a, b):
-    return a + b
+# Selective import
+from math import sqrt, pi
+print(sqrt(36))    # no need for math.sqrt`,
+        tags: ['import','modules','math','random','datetime']
+    },
+    {
+        id: 21, level: 'intermediate',
+        title: 'Lambda Functions',
+        desc: 'Anonymous one-liner functions — perfect for quick transformations and sorting.',
+        code:
+`# Regular function
+def square(x):
+    return x ** 2
 
-def subtract(a, b):
-    return a - b
+# Equivalent lambda
+square_lambda = lambda x: x ** 2
 
-def multiply(a, b):
-    return a * b
-'''
+print(square(5))         # 25
+print(square_lambda(5))  # 25
 
-# Then import it:
-import calculator
-result = calculator.add(5, 3)
-print(f"\\n5 + 3 = {result}")`,
-                tags: ["modules", "import", "libraries"]
-            },
-            {
-                title: "List Comprehensions",
-                description: "Create lists in a concise, readable way - Python's superpower for data manipulation!",
-                level: "intermediate",
-                category: "data-structures",
-                code: `# Traditional way
-numbers = []
-for i in range(10):
-    numbers.append(i)
-print(numbers)
+# Lambda with sorted()
+students = [
+    {"name": "Aisha",   "gpa": 4.2},
+    {"name": "Bola",    "gpa": 3.8},
+    {"name": "Chinedu", "gpa": 4.5},
+]
+by_gpa = sorted(students, key=lambda s: s["gpa"], reverse=True)
+for s in by_gpa:
+    print(f"{s['name']}: {s['gpa']}")
 
-# List comprehension way
-numbers = [i for i in range(10)]
-print(numbers)
+# Lambda with map() and filter()
+numbers = [1, 2, 3, 4, 5, 6]
+doubled  = list(map(lambda x: x * 2, numbers))
+evens    = list(filter(lambda x: x % 2 == 0, numbers))
+print(doubled)   # [2, 4, 6, 8, 10, 12]
+print(evens)     # [2, 4, 6]`,
+        tags: ['lambda','anonymous','map','filter','sorted']
+    },
+    {
+        id: 22, level: 'intermediate',
+        title: 'Classes & Objects (OOP Basics)',
+        desc: 'Object-Oriented Programming lets you model real-world things as Python classes.',
+        code:
+`class Student:
+    """Represents a university student."""
 
-# More examples
-# Squares of numbers
-squares = [x**2 for x in range(1, 6)]
-print(f"Squares: {squares}")
+    def __init__(self, name, age, major):
+        self.name  = name
+        self.age   = age
+        self.major = major
+        self.grades = []
 
-# Even numbers only
-evens = [x for x in range(20) if x % 2 == 0]
-print(f"Even numbers: {evens}")
+    def add_grade(self, grade):
+        self.grades.append(grade)
 
-# Convert grades
-grades = [85, 92, 78, 88, 95]
-letter_grades = ['A' if g >= 90 else 'B' if g >= 80 else 'C' for g in grades]
-print(f"Letter grades: {letter_grades}")
+    def get_average(self):
+        if not self.grades:
+            return 0
+        return sum(self.grades) / len(self.grades)
 
-# Nested list comprehension
-matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-flattened = [num for row in matrix for num in row]
-print(f"Flattened matrix: {flattened}")`,
-                tags: ["list-comprehension", "data-manipulation", "advanced"]
-            }
-        ];
+    def __str__(self):
+        return f"Student({self.name}, {self.major})"
 
-        // Generate remaining concepts
-        for (let i = 11; i <= 100; i++) {
-            const template = conceptTemplates[(i - 11) % conceptTemplates.length];
-            const categories = ["basics", "logic", "functions", "data-structures", "file-io", "modules", "error-handling"];
-            const levels = ["beginner", "intermediate", "advanced"];
-            
-            pythonConcepts.push({
-                id: i,
-                title: `Concept ${i}: ${template.title}`,
-                description: `${template.description} Master this to level up your Python skills!`,
-                level: template.level || levels[Math.floor(Math.random() * levels.length)],
-                category: template.category || categories[Math.floor(Math.random() * categories.length)],
-                code: template.code || `# Concept ${i} Example
-print("Learning Python concept", ${i})
-# Practice this concept with your own examples!`,
-                tags: [...template.tags || [], `concept${i}`, "practice", "learning"]
-            });
-        }
 
-        // DOM elements
-        const conceptsContainer = document.getElementById('concepts-container');
-        const totalConceptsEl = document.getElementById('total-concepts');
-        const completedConceptsEl = document.getElementById('completed-concepts');
-        const remainingConceptsEl = document.getElementById('remaining-concepts');
-        const progressPercentage = document.getElementById('progress-percentage');
-        const progressFill = document.getElementById('progress-fill');
-        const daysEstimate = document.getElementById('days-estimate');
+# Create objects (instances)
+aisha = Student("Aisha Bello", 19, "Computer Science")
+aisha.add_grade(85)
+aisha.add_grade(92)
+aisha.add_grade(88)
 
-        // State
-        let completedConcepts = JSON.parse(localStorage.getItem('python-concepts-completed')) || [];
+print(aisha)
+print(f"Average: {aisha.get_average():.1f}")`,
+        tags: ['class','oop','object','init','method']
+    },
+    {
+        id: 23, level: 'intermediate',
+        title: 'Inheritance',
+        desc: 'Child classes inherit attributes and methods from a parent class — a core OOP concept.',
+        code:
+`class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age  = age
 
-        // Initialize
-        function init() {
-            renderConcepts();
-            updateProgress();
-            
-            // Add search functionality
-            const searchBox = document.createElement('input');
-            searchBox.type = 'text';
-            searchBox.placeholder = '🔍 Search Python concepts...';
-            searchBox.style.cssText = `
-                width: 100%;
-                padding: 1rem;
-                border: 2px solid #e2e8f0;
-                border-radius: 8px;
-                font-size: 1rem;
-                margin: 2rem 0;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            `;
-            
-            document.querySelector('.container').insertBefore(searchBox, conceptsContainer);
-            
-            searchBox.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                filterConcepts(searchTerm);
-            });
-        }
+    def greet(self):
+        print(f"Hi, I'm {self.name}, age {self.age}.")
 
-        // Render concepts with PROPER CODE FORMATTING
-        function renderConcepts() {
-            conceptsContainer.innerHTML = '';
-            
-            pythonConcepts.forEach(concept => {
-                const conceptCard = document.createElement('div');
-                conceptCard.className = 'concept-card';
-                conceptCard.setAttribute('data-id', concept.id);
-                
-                const isCompleted = completedConcepts.includes(concept.id);
-                
-                conceptCard.innerHTML = `
-                    <input type="checkbox" class="completed-checkbox" ${isCompleted ? 'checked' : ''} 
-                           data-id="${concept.id}" title="Mark as mastered">
-                    <div class="concept-header">
-                        <span class="concept-level level-${concept.level}">${concept.level}</span>
-                        <span style="font-size: 0.9rem; color: var(--gray);">#${concept.id}</span>
-                    </div>
-                    <h3 class="concept-title">${concept.title}</h3>
-                    <p class="concept-description">${concept.description}</p>
-                    
-                    <div class="code-container">
-                        <div class="code-header">
-                            <div class="code-title">python_code.py</div>
-                            <div class="code-actions">
-                                <button class="code-action-btn" onclick="copyCode(${concept.id})">
-                                    <i class="far fa-copy"></i> Copy
-                                </button>
-                            </div>
-                        </div>
-                        <pre class="code-example">${highlightPythonCode(concept.code)}</pre>
-                    </div>
-                    
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
-                        ${concept.tags.map(tag => `<span style="background: #e9ecef; color: var(--gray); padding: 0.3rem 0.7rem; border-radius: 15px; font-size: 0.8rem;">${tag}</span>`).join('')}
-                    </div>
-                `;
-                
-                conceptsContainer.appendChild(conceptCard);
-            });
-            
-            // Add event listeners to checkboxes
-            document.querySelectorAll('.completed-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', toggleCompleted);
-            });
-        }
 
-        // Copy code function
-        window.copyCode = function(conceptId) {
-            const concept = pythonConcepts.find(c => c.id === conceptId);
+class Student(Person):
+    def __init__(self, name, age, student_id):
+        super().__init__(name, age)    # call parent __init__
+        self.student_id = student_id
+        self.courses    = []
+
+    def enroll(self, course):
+        self.courses.append(course)
+        print(f"{self.name} enrolled in {course}.")
+
+
+class GraduateStudent(Student):
+    def __init__(self, name, age, student_id, thesis):
+        super().__init__(name, age, student_id)
+        self.thesis = thesis
+
+    def greet(self):
+        super().greet()
+        print(f"My thesis: {self.thesis}")
+
+
+grad = GraduateStudent("Ngozi", 25, "G001", "ML in Healthcare")
+grad.greet()
+grad.enroll("Advanced Python")`,
+        tags: ['inheritance','super','parent','child','oop']
+    },
+    {
+        id: 24, level: 'intermediate',
+        title: 'Working with JSON',
+        desc: 'JSON is the universal data format for APIs and config files. Python makes reading and writing it trivial.',
+        code:
+`import json
+
+# Python dict → JSON string
+student = {
+    "name":    "Aisha Bello",
+    "age":     19,
+    "courses": ["Python", "Math"],
+    "passed":  True
+}
+
+json_string = json.dumps(student, indent=2)
+print(json_string)
+
+# JSON string → Python dict
+data = json.loads(json_string)
+print(data["name"])     # Aisha Bello
+print(data["courses"])  # ['Python', 'Math']
+
+# Save JSON to file
+with open("student.json", "w") as f:
+    json.dump(student, f, indent=2)
+
+# Load JSON from file
+with open("student.json", "r") as f:
+    loaded = json.load(f)
+    print(loaded)`,
+        tags: ['json','api','serialize','data','file']
+    },
+    {
+        id: 25, level: 'intermediate',
+        title: 'Regular Expressions (RegEx)',
+        desc: 'Pattern matching for text — validate emails, phone numbers, extract data from strings.',
+        code:
+`import re
+
+# Check for a valid email
+email = "student@university.edu.ng"
+pattern = r"^[\\w.+-]+@[\\w-]+\\.[\\w.-]+$"
+
+if re.match(pattern, email):
+    print("Valid email!")
+else:
+    print("Invalid email.")
+
+# Find all phone numbers in text
+text = "Call 08012345678 or 09087654321 for info."
+phones = re.findall(r"\\d{11}", text)
+print("Phones found:", phones)
+
+# Extract numbers from a string
+data = "Score: 85, GPA: 4.2, Rank: 3"
+numbers = re.findall(r"\\d+\\.?\\d*", data)
+print("Numbers:", numbers)
+
+# Replace text
+result = re.sub(r"\\bJava\\b", "Python", "I love Java coding!")
+print(result)`,
+        tags: ['regex','re','pattern','validate','extract']
+    }
+];
+
+// Generate concepts 26-100 with varied but meaningful templates
+const extraTemplates = [
+    {
+        level:'intermediate', suffix:'— map(), filter(), zip()',
+        desc:'Higher-order functions that process iterables elegantly without explicit loops.',
+        code:
+`numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# map: apply a function to every element
+squared = list(map(lambda x: x**2, numbers))
+print("Squared:", squared)
+
+# filter: keep only elements that pass a test
+evens   = list(filter(lambda x: x % 2 == 0, numbers))
+print("Evens:", evens)
+
+# zip: pair elements from two lists
+names  = ["Aisha", "Bola", "Chinedu"]
+scores = [85, 92, 78]
+pairs  = list(zip(names, scores))
+print("Pairs:", pairs)
+
+# Practical: weighted average with zip
+weights = [0.3, 0.4, 0.3]
+weighted_score = sum(s * w for s, w in zip(scores, weights))
+print(f"Weighted score: {weighted_score:.1f}")`,
+        tags:['map','filter','zip','functional','higher-order']
+    },
+    {
+        level:'intermediate', suffix:'— enumerate()',
+        desc:'Loop through a list while also keeping track of the index number.',
+        code:
+`subjects = ["Mathematics", "English", "Physics", "Chemistry"]
+
+# enumerate gives index + value
+for index, subject in enumerate(subjects):
+    print(f"{index + 1}. {subject}")
+
+# Start count from a different number
+print()
+for rank, subject in enumerate(subjects, start=1):
+    print(f"Rank {rank}: {subject}")
+
+# Practical: find position of highest mark
+marks = [85, 92, 78, 95, 88]
+best_pos  = 0
+best_mark = 0
+for i, mark in enumerate(marks):
+    if mark > best_mark:
+        best_mark = mark
+        best_pos  = i
+
+print(f"Highest mark {best_mark} is at index {best_pos}")`,
+        tags:['enumerate','index','loop','list','position']
+    },
+    {
+        level:'intermediate', suffix:'— Default & Keyword Arguments',
+        desc:'Make functions flexible by giving parameters default values.',
+        code:
+`# Default argument
+def greet(name, greeting="Hello"):
+    print(f"{greeting}, {name}!")
+
+greet("Aisha")              # Hello, Aisha!
+greet("Bola", "Good morning")  # Good morning, Bola!
+
+# Keyword arguments (order doesn't matter)
+def student_info(name, age, major="Undecided"):
+    print(f"{name}, {age}, studying {major}")
+
+student_info(age=19, name="Chinedu", major="CS")
+
+# *args — variable positional arguments
+def total_marks(*marks):
+    return sum(marks)
+
+print(total_marks(85, 90, 78, 92))
+
+# **kwargs — variable keyword arguments
+def create_profile(**info):
+    for key, value in info.items():
+        print(f"  {key}: {value}")
+
+create_profile(name="Ngozi", age=20, level="300L")`,
+        tags:['args','kwargs','default','parameters','flexible']
+    },
+    {
+        level:'advanced', suffix:'— Generators',
+        desc:'Generate values one at a time instead of storing them all in memory — perfect for large datasets.',
+        code:
+`# Generator function (uses yield)
+def count_up(limit):
+    n = 1
+    while n <= limit:
+        yield n
+        n += 1
+
+# Use the generator
+for num in count_up(5):
+    print(num, end=" ")
+print()
+
+# Generator expression (like list comprehension but lazy)
+squares_gen = (x**2 for x in range(1, 1000001))
+# No memory wasted — values created on demand
+print(next(squares_gen))   # 1
+print(next(squares_gen))   # 4
+print(next(squares_gen))   # 9
+
+# Fibonacci generator
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+fib = fibonacci()
+for _ in range(10):
+    print(next(fib), end=" ")`,
+        tags:['generator','yield','lazy','memory','fibonacci']
+    },
+    {
+        level:'advanced', suffix:'— Decorators',
+        desc:'Wrap functions to add extra behaviour without modifying the original function.',
+        code:
+`import time
+
+# Simple decorator
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start  = time.time()
+        result = func(*args, **kwargs)
+        end    = time.time()
+        print(f"{func.__name__} took {end - start:.4f}s")
+        return result
+    return wrapper
+
+@timer
+def slow_sum(n):
+    return sum(range(n))
+
+slow_sum(1_000_000)
+
+# Login check decorator
+def require_login(func):
+    def wrapper(user, *args, **kwargs):
+        if not user.get("logged_in"):
+            print("Access denied — please log in.")
+            return
+        return func(user, *args, **kwargs)
+    return wrapper
+
+@require_login
+def view_grades(user):
+    print(f"Grades for {user['name']}: A, B, A")
+
+view_grades({"name": "Aisha", "logged_in": True})
+view_grades({"name": "Bob",   "logged_in": False})`,
+        tags:['decorator','wrapper','timer','advanced','design-pattern']
+    },
+    {
+        level:'advanced', suffix:'— Context Managers',
+        desc:'The "with" statement ensures resources (files, connections) are always properly closed.',
+        code:
+`# Built-in context manager (file handling)
+with open("data.txt", "w") as f:
+    f.write("Hello, Python!")
+# file is automatically closed here
+
+# Creating a custom context manager
+from contextlib import contextmanager
+
+@contextmanager
+def managed_resource(name):
+    print(f"Opening: {name}")
+    try:
+        yield name
+    finally:
+        print(f"Closing: {name}")
+
+with managed_resource("Database") as res:
+    print(f"Using {res}")
+
+# Timer context manager
+@contextmanager
+def timer():
+    import time
+    start = time.time()
+    yield
+    elapsed = time.time() - start
+    print(f"Elapsed: {elapsed:.4f} seconds")
+
+with timer():
+    total = sum(range(1_000_000))
+    print(f"Sum: {total}")`,
+        tags:['context-manager','with','yield','resource','cleanup']
+    },
+    {
+        level:'advanced', suffix:'— Data Classes',
+        desc:'@dataclass auto-generates __init__, __repr__, and __eq__ — clean, less boilerplate.',
+        code:
+`from dataclasses import dataclass, field
+from typing import List
+
+@dataclass
+class Student:
+    name:    str
+    age:     int
+    major:   str
+    grades:  List[float] = field(default_factory=list)
+
+    def average(self) -> float:
+        return sum(self.grades) / len(self.grades) if self.grades else 0.0
+
+    def is_passing(self) -> bool:
+        return self.average() >= 50.0
+
+
+# Create instances cleanly
+aisha = Student("Aisha", 19, "Computer Science")
+aisha.grades = [85.0, 92.0, 78.0, 88.0]
+
+print(aisha)
+print(f"Average: {aisha.average():.1f}")
+print(f"Passing: {aisha.is_passing()}")
+
+bola = Student("Bola", 20, "Mathematics", [90, 95, 88])
+print(bola)`,
+        tags:['dataclass','typing','clean','boilerplate','oop']
+    },
+    {
+        level:'advanced', suffix:'— Type Hints',
+        desc:'Annotate function signatures with expected types for better readability and IDE support.',
+        code:
+`from typing import List, Dict, Optional, Tuple
+
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+
+def calculate_average(marks: List[float]) -> float:
+    return sum(marks) / len(marks)
+
+def find_student(
+    records: Dict[str, int],
+    name: str
+) -> Optional[int]:
+    return records.get(name)   # returns None if not found
+
+def get_stats(
+    data: List[float]
+) -> Tuple[float, float, float]:
+    return min(data), max(data), sum(data) / len(data)
+
+# Usage
+print(greet("Aisha"))
+avg = calculate_average([85.0, 92.0, 78.0])
+print(f"Average: {avg:.1f}")
+
+records = {"Aisha": 85, "Bola": 92}
+print(find_student(records, "Aisha"))   # 85
+print(find_student(records, "Ngozi"))   # None
+
+lo, hi, mean = get_stats([85, 92, 78, 88])
+print(f"Min {lo}, Max {hi}, Mean {mean:.1f}")`,
+        tags:['type-hints','typing','annotations','mypy','readability']
+    }
+];
+
+for (let i = 26; i <= 100; i++) {
+    const t = extraTemplates[(i - 26) % extraTemplates.length];
+    CONCEPTS.push({
+        id: i,
+        level: t.level,
+        title: `Concept ${i} ${t.suffix}`,
+        desc: t.desc + ' Master this to level up your Python skills.',
+        code: t.code,
+        tags: [...t.tags, `concept-${i}`]
+    });
+}
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let completed = [];
+try {
+    completed = JSON.parse(localStorage.getItem('pymastery-done') || '[]');
+} catch(e) { completed = []; }
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderAll(list) {
+    const container = document.getElementById('concepts-container');
+    container.innerHTML = '';
+    list.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'concept-card';
+        div.dataset.id = c.id;
+
+        const done = completed.includes(c.id);
+        const highlightedCode = tokenizePython(c.code);
+
+        div.innerHTML = `
+            <div class="card-top">
+                <span class="badge badge-${c.level}">${c.level}</span>
+                <span class="concept-num">#${c.id}</span>
+            </div>
+            <h3 class="concept-title">${c.title}</h3>
+            <p class="concept-desc">${c.desc}</p>
+            <div class="code-block">
+                <div class="code-bar">
+                    <span>python_code.py</span>
+                    <button class="copy-btn" data-id="${c.id}">Copy</button>
+                </div>
+                <pre>${highlightedCode}</pre>
+            </div>
+            <div class="tags">${c.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+            <input type="checkbox" class="done-check" title="Mark as mastered" ${done ? 'checked' : ''} data-id="${c.id}">
+        `;
+        container.appendChild(div);
+    });
+
+    // Attach events
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.dataset.id);
+            const concept = CONCEPTS.find(c => c.id === id);
             if (concept) {
-                navigator.clipboard.writeText(concept.code)
-                    .then(() => {
-                        // Show success message
-                        const event = new CustomEvent('show-toast', {
-                            detail: { message: 'Code copied to clipboard! 📋' }
-                        });
-                        document.dispatchEvent(event);
-                    })
-                    .catch(err => {
-                        console.error('Failed to copy: ', err);
-                    });
+                navigator.clipboard.writeText(concept.code).then(() => {
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => btn.textContent = 'Copy', 1500);
+                }).catch(() => { btn.textContent = 'Error'; });
             }
-        };
+        });
+    });
 
-        // Filter concepts
-        function filterConcepts(searchTerm) {
-            const cards = document.querySelectorAll('.concept-card');
-            cards.forEach(card => {
-                const title = card.querySelector('.concept-title').textContent.toLowerCase();
-                const description = card.querySelector('.concept-description').textContent.toLowerCase();
-                const tags = Array.from(card.querySelectorAll('span')).map(span => span.textContent.toLowerCase());
-                
-                if (searchTerm === '' || title.includes(searchTerm) || description.includes(searchTerm) || 
-                    tags.some(tag => tag.includes(searchTerm))) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Toggle concept completion
-        function toggleCompleted(e) {
-            const conceptId = parseInt(e.target.getAttribute('data-id'));
-            
-            if (e.target.checked) {
-                if (!completedConcepts.includes(conceptId)) {
-                    completedConcepts.push(conceptId);
-                    e.target.classList.add('check-animation');
-                    setTimeout(() => e.target.classList.remove('check-animation'), 1000);
-                }
+    document.querySelectorAll('.done-check').forEach(cb => {
+        cb.addEventListener('change', () => {
+            const id = parseInt(cb.dataset.id);
+            if (cb.checked) {
+                if (!completed.includes(id)) completed.push(id);
             } else {
-                completedConcepts = completedConcepts.filter(id => id !== conceptId);
+                completed = completed.filter(x => x !== id);
             }
-            
-            localStorage.setItem('python-concepts-completed', JSON.stringify(completedConcepts));
+            try { localStorage.setItem('pymastery-done', JSON.stringify(completed)); } catch(e){}
             updateProgress();
-        }
+        });
+    });
+}
 
-        // Update progress
-        function updateProgress() {
-            const total = pythonConcepts.length;
-            const completed = completedConcepts.length;
-            const remaining = total - completed;
-            const percentage = Math.round((completed / total) * 100);
-            
-            completedConceptsEl.textContent = completed;
-            remainingConceptsEl.textContent = remaining;
-            progressPercentage.textContent = `${percentage}%`;
-            progressFill.style.width = `${percentage}%`;
-            
-            // Update days estimate
-            const daysLeft = Math.ceil(remaining / 3); // 3 concepts per day
-            daysEstimate.textContent = daysLeft <= 1 ? "Today!" : `${daysLeft} days`;
-            
-            // Update progress color
-            if (percentage === 100) {
-                progressPercentage.style.color = 'var(--success)';
-                progressFill.style.background = 'var(--success)';
-            }
-        }
+function updateProgress() {
+    const total = CONCEPTS.length;
+    const done  = completed.length;
+    const left  = total - done;
+    const pct   = Math.round(done / total * 100);
 
-        // Initialize the app
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
+    document.getElementById('done-num').textContent = done;
+    document.getElementById('left-num').textContent = left;
+    document.getElementById('pct').textContent = pct + '%';
+    document.getElementById('bar-fill').style.width = pct + '%';
+    document.getElementById('days-left').textContent =
+        left === 0 ? 'Done! 🎉' : Math.ceil(left / 3) + ' days';
+}
+
+// Search
+document.getElementById('search-box').addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    if (!q) { renderAll(CONCEPTS); return; }
+    const filtered = CONCEPTS.filter(c =>
+        c.title.toLowerCase().includes(q) ||
+        c.desc.toLowerCase().includes(q) ||
+        c.tags.some(t => t.includes(q)) ||
+        c.level.includes(q)
+    );
+    renderAll(filtered);
+});
+
+// Boot
+renderAll(CONCEPTS);
+updateProgress();
+</script>
 </body>
 </html>
